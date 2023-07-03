@@ -156,12 +156,20 @@ namespace SauceEcommerceDemo.Hooks
         {
             _extentReports.Flush();
         }
-
+ public string addScreenshot(IWebDriver driver, ScenarioContext scenarioContext)
+        {
+            ITakesScreenshot takesScreenshot = (ITakesScreenshot)driver;
+            Screenshot screenshot = takesScreenshot.GetScreenshot();
+            string screenshotLocation = Path.Combine( scenarioContext.ScenarioInfo.Title + ".png");
+            screenshot.SaveAsFile(screenshotLocation, ScreenshotImageFormat.Png);
+            return screenshotLocation;
+        }
         [AfterScenario]
         public void AfterScenario()
         {
             //driver.Quit();
             //driver.Dispose();
         }
+       
     }
 }
